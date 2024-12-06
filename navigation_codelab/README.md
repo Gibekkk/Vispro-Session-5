@@ -8,28 +8,21 @@ Codelab ini bertujuan untuk mempelajari routing secara sederhana pada Flutter me
 - Pastikan Anda memiliki editor kode seperti Android Studio atau Visual Studio Code.
 - Pastikan Anda memiliki device atau platform untuk menjalankan aplikasi.
 
-### Langkah-langkah Instalasi
-1. Clone repositori ini ke komputer Anda:
-   bash
-   git clone https://github.com/Gibekkk/Vispro-Session-5.git
-   
-2. Navigasikan ke direktori proyek:
-   bash
-   cd navigation_codelab
-   
-3. Jalankan perintah berikut untuk menginstal dependensi:
-   bash
-   flutter pub get
+### Instalasi Aplikasi
+```
+git clone https://github.com/Gibekkk/Vispro-Session-5.git
+cd Path-To-Download-Folder/navigation_codelab
+flutter pub get
+```
    
 
 ### Cara Menjalankan Aplikasi
 1. Hubungkan perangkat Android atau iOS Anda, atau siapkan emulator. Dapat juga dijalankan melalui web browser.
-2. Navigasikan ke direktori proyek:
-   bash
-   cd navigation_codelab
-3. Jalankan aplikasi dengan perintah berikut:
-   bash
-   flutter run
+```
+cd Path-To-Download-Folder/navigation_codelab
+flutter run
+```
+2. jalankan code di atas, lalu pilih device untuk menjalankan aplikasi sesuai yang sudah disediakan
 
 ## Cara penggunaan aplikasi
 - Pada screen pertama, klik tombol ```Go to Second Screen``` untuk ke screen ke dua atau klik tombol ```Go to Second Screen``` untuk ke screen ke tiga.
