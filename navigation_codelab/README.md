@@ -11,7 +11,7 @@ Codelab ini bertujuan untuk mempelajari routing secara sederhana pada Flutter me
 ### Instalasi Aplikasi
 ```
 git clone https://github.com/Gibekkk/Vispro-Session-5.git
-cd Path-To-Download-Folder/navigation_codelab
+cd Path-To-Download-Folder/Vispro-Session-5/navigation_codelab
 flutter pub get
 ```
    
@@ -19,7 +19,7 @@ flutter pub get
 ### Cara Menjalankan Aplikasi
 1. Hubungkan perangkat Android atau iOS Anda, atau siapkan emulator. Dapat juga dijalankan melalui web browser.
 ```
-cd Path-To-Download-Folder/navigation_codelab
+cd Path-To-Download-Folder/Vispro-Session-5/navigation_codelab
 flutter run
 ```
 2. jalankan code di atas, lalu pilih device untuk menjalankan aplikasi sesuai yang sudah disediakan
