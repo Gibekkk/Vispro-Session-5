@@ -1,62 +1,33 @@
+// Import package Flutter dan file lain yang berisi screen (layar) aplikasi.
 import 'package:flutter/material.dart';
 import 'first_screen.dart';
 import 'second_screen.dart';
 import 'third_screen.dart';
 
+// Fungsi utama untuk menjalankan aplikasi Flutter.
 void main() => runApp(MyApp());
 
+// Class utama aplikasi Flutter.
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // Judul aplikasi yang akan muncul di beberapa platform (misalnya saat minimize aplikasi).
       title: 'Navigation Codelab',
+
+      // Tema utama aplikasi, menggunakan warna biru sebagai warna utama.
       theme: ThemeData(primarySwatch: Colors.blue),
-      // Named routes setup
+
+      // Halaman awal aplikasi yang akan ditampilkan pertama kali saat aplikasi dijalankan.
+      home: FirstScreen(),
+
+      // Daftar rute yang digunakan untuk navigasi antar layar.
+      // '/first' untuk FirstScreen, '/second' untuk SecondScreen, '/third' untuk ThirdScreen.
       routes: {
-        '/': (context) => BottomNavHome(), // Pakai BottomNav di sini
+        '/first': (context) => FirstScreen(),
         '/second': (context) => SecondScreen(),
         '/third': (context) => ThirdScreen(),
       },
-      initialRoute: '/',
-    );
-  }
-}
-
-// BottomNavHome: Mengatur Bottom Navigation
-class BottomNavHome extends StatefulWidget {
-  @override
-  _BottomNavHomeState createState() => _BottomNavHomeState();
-}
-
-class _BottomNavHomeState extends State<BottomNavHome> {
-  int _selectedIndex = 0;
-
-  static List<Widget> _screens = [
-    FirstScreen(),
-    SecondScreen(),
-    ThirdScreen(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'First'),
-          BottomNavigationBarItem(icon: Icon(Icons.business), label: 'Second'),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Third'),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
-      ),
     );
   }
 }
