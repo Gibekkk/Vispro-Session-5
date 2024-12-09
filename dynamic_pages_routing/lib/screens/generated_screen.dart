@@ -3,57 +3,88 @@ import 'package:flutter/material.dart';
 class GeneratedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final int? screenNumber =
-        ModalRoute.of(context)?.settings.arguments as int?;
+    // Ambil arguments sebagai Map<String, dynamic>
+    final arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final int? screenNumber = arguments?['screenNumber'] as int?;
+    final int? totalScreens = arguments?['totalScreens'] as int?;
 
-    if (screenNumber == null) {
+    // Handle kasus invalid
+    if (screenNumber == null || totalScreens == null || screenNumber <= 0 || totalScreens <= 0) {
       return Scaffold(
         appBar: AppBar(title: Text('Error')),
         body: Center(
           child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Menyusun widget secara vertikal
-              children: [
-                Text('Layar invalid!'),
-                ElevatedButton(
-                  onPressed: () {
-                    // Mengarahkan pengguna kembali ke Screen 1 dan menghapus semua layar sebelumnya
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/screen1', // Nama route yang menuju ke Screen 1
-                      (route) =>
-                          false, // Menghapus semua route sebelumnya dari stack
-                    );
-                  },
-                  child: Text('Kembali ke Screen 1'), // Teks tombol
-                ),
-              ]),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Layar invalid!'),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/screen1',
+                    (route) => false,
+                  );
+                },
+                child: Text('Kembali ke Screen 1'),
+              ),
+            ],
+          ),
         ),
       );
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        // Mengizinkan tombol back device untuk mempop satu layar
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Layar $screenNumber'),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              // Back button di AppBar langsung kembali ke Screen 1
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                '/screen1',
-                (route) => false, // Pop semua layar
-              );
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Layar $screenNumber'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/screen1',
+              (route) => false,
+            );
+          },
         ),
-        body: Center(
-          child: Text('Ini layar $screenNumber.'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Ini layar $screenNumber.', style: TextStyle(fontSize: 24)),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Tombol Previous: Hilang kalau di layar pertama
+                if (screenNumber > 1)
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        '/generated_screen',
+                        arguments: {'screenNumber': screenNumber - 1, 'totalScreens': totalScreens},
+                      );
+                    },
+                    child: Text('Previous'),
+                  ),
+                if (screenNumber > 1) SizedBox(width: 20), // Jarak antar tombol
+
+                // Tombol Next: Hilang kalau di layar terakhir
+                if (screenNumber < totalScreens)
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        '/generated_screen',
+                        arguments: {'screenNumber': screenNumber + 1, 'totalScreens': totalScreens},
+                      );
+                    },
+                    child: Text('Next'),
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
     );

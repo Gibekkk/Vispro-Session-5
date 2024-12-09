@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // Mengimpor library Flutter untuk menggunakan widget material
 
 class DynamicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Mengambil jumlah layar yang dikirimkan dari layar sebelumnya
     final int? totalScreens =
         ModalRoute.of(context)?.settings.arguments as int?;
 
+    // Jika jumlah layar tidak valid atau kurang dari 1, tampilkan error
     if (totalScreens == null || totalScreens <= 0) {
       return Scaffold(
-        appBar: AppBar(title: Text('Error')),
+        appBar: AppBar(title: Text('Error')), // Judul app bar error
         body: Center(
           child: Column(
               mainAxisAlignment:
@@ -32,42 +34,28 @@ class DynamicScreen extends StatelessWidget {
       );
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        // Mengizinkan tombol back device untuk mempop satu layar
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Dynamic Screen'),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              // Back button di AppBar langsung kembali ke Screen 1
-              Navigator.pushNamedAndRemoveUntil(
+    // Jika jumlah layar valid, tampilkan dynamic screen dengan daftar layar
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dynamic Screen'), // Judul app bar
+      ),
+      body: ListView.builder(
+        itemCount:
+            totalScreens, // Menentukan jumlah item berdasarkan totalScreens
+        itemBuilder: (context, index) {
+          final screenNumber = index + 1; // Menentukan nomor layar
+          return ListTile(
+            title: Text('Layar $screenNumber'), // Menampilkan teks "Layar X"
+            onTap: () {
+              // Navigasi ke generated screen ketika item ditekan
+              Navigator.pushNamed(
                 context,
-                '/screen1',
-                (route) => false,
+                '/generated_screen', // Arahkan ke generated_screen
+                arguments: {'screenNumber': screenNumber, 'totalScreens': totalScreens}, // Kirim nomor layar dan jumlah layar sebagai argument
               );
             },
-          ),
-        ),
-        body: ListView.builder(
-          itemCount: totalScreens,
-          itemBuilder: (context, index) {
-            final screenNumber = index + 1;
-            return ListTile(
-              title: Text('Layar $screenNumber'),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/generated_screen',
-                  arguments: screenNumber,
-                );
-              },
-            );
-          },
-        ),
+          );
+        },
       ),
     );
   }
